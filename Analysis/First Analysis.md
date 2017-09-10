@@ -1,6 +1,6 @@
-#Exercise 
-##Olivia Horace and Tyerra Smith
-##Version 1.1
+#Exercise1  
+##Olivia Horace and Tyerra Smith  
+##Version 1.1  
 
 For our project we will be making an ATM.  
 We expect this project to allow a user to sign into an account via a password.  
