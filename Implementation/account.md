@@ -1,33 +1,33 @@
-import java.util.Random;
-/**
- * Account class
- *
- * @author Tyerra Smith and Olivia Horace
- * @version Implementation 3.1 (09/01/2017)
- */
+    import java.util.Random;  
+     /**  
+      * Account class  
+      *  
+      * @author Tyerra Smith and Olivia Horace  
+      * @version Implementation 3.1 (09/01/2017)  
+      */  
 
-public class Account
-{
-    // instance variables 
-    protected String accountType;
-    protected String accountNo;
-    protected double accountBal;
-    protected String accountOwnerFName;
-    protected String accountOwnerLName;
-    //private double accountStartupAmt; If a new account is being created, for a Savings account you must start with at least $25
+      public class Account   
+      {  
+          // instance variables  
+          protected String accountType;  
+          protected String accountNo;  
+          protected double accountBal;  
+          protected String accountOwnerFName;  
+          protected String accountOwnerLName;  
+          //private double accountStartupAmt; If a new account is being created, for a Savings account you must start with at least $25  
     
-    /**
-     * Constructor for objects of class Account
-     */
-    public Account(String fName, String lName, String type)
-    {
-        // initialise instance variables
-        accountOwnerFName = fName;
-        accountOwnerLName = lName;
-        accountType = type;
-        accountBal = 0.00;
-        accountNo = generateAccountNo();
-    }
+      /**  
+       * Constructor for objects of class Account  
+       */  
+    public Account(String fName, String lName, String type)  
+    {  
+        // initialise instance variables  
+        accountOwnerFName = fName;  
+        accountOwnerLName = lName;  
+        accountType = type;  
+        accountBal = 0.00;  
+        accountNo = generateAccountNo();  
+    }  
 
 
     public void setType(String type)
@@ -85,4 +85,4 @@ public class Account
         return accountType;
     }
     
-}
+    }
