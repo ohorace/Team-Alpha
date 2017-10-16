@@ -5,7 +5,7 @@
  * 
  * 
  * @Horace and Smith 
- * @October 16, 2017 - Iteration 3
+ * @October 16, 2017 - Iteration 2
  */
 import java.io.*;
 import java.util.*;
