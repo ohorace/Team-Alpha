@@ -1,5 +1,6 @@
 # Checking Account Source Code  
-  
+
+```java
 /**  
  * Checking Account class  
  *  
@@ -18,4 +19,5 @@ public class CheckingAccount extends Account
         super(fName, lName, type);  
   
     }  
-}  
+}
+```
