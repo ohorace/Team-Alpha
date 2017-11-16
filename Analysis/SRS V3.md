@@ -31,7 +31,7 @@
 -- c) After a successful deposit, the account balance will be displayed.  
 
 * 1.1.7. The system shall allow the user to transfer money from one account to another account.   
--- a) The transaction cannot be made if the **transfer from** account does not have insufficient funds.  
+-- a) The transaction cannot be made if the **'transfer from'** account does not have insufficient funds.  
 -- b) If the transaction limit has been reached, the transfer will not be completed.  
 -- c) After a successful transfer, the account balances of both accounts will be displayed.   
 
