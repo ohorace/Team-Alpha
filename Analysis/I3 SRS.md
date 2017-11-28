@@ -8,10 +8,12 @@
 * 1.1.1. The system shall allow users to login using a unique username and password.  
 -- a) Maximum of 3 failed attempts before the account is locked.  
 
-* 1.1.2. The username should be between 6 and 18 characters.   
--- b) Usernames cannot contain spaces. 
+* 1.1.2. The username should be between 8 and 18 characters.  
+-- a) The username can only contain alphanumeric characters.  
+-- b) Symbols and spaces are not allowed.  
 
-* 1.1.3. The password should be between 8 and 12 characters.   
+* 1.1.3. The password should be between 8 and 12 characters.  
+-- a) The password must contain *at least*: one capital letter, one lowercase letter, one number, and one special character.  
 -- b) Passwords cannot contain spaces.  
 
 * 1.1.4. The *Account Information* page (i.e. the first page displayed after logging in) shall display all of the user's accounts.  
