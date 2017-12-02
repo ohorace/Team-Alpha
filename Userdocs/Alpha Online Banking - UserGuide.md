@@ -1,8 +1,8 @@
-# User Guide for **Alpha Online Banking**  
+# User Guide for _Alpha Online Banking_  
 ## Version Up-To-Date: 11/28/17  
 
 ### Introduction: What is Alpha Online Banking?  
-- Alpha Online Banking is a java application that allows the creation and manipulation of 
+Alpha Online Banking is a java application that allows the creation and manipulation of 
 bank accounts of the Alpha Bank. These manipulations include deposits, transfers, withdrawals, 
 and more.  
 
