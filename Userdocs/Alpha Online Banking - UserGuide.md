@@ -1,4 +1,4 @@
-# User Guide for ** Alpha Online Banking **  
+# User Guide for **Alpha Online Banking**  
 ## Version Up-To-Date: 11/28/17  
 
 ### Introduction: What is Alpha Online Banking?  
