@@ -1,0 +1,325 @@
+```java
+/**
+ * Driver Class
+ * Allows a user to create an account and/or log into an account
+ * A user can make transactions on their accounts
+ * 
+ * @Smith and Horace
+ * @11/26/17
+ */
+import java.io.*;
+import java.util.*;
+public class Driver
+{
+    //arraylists to hold customer and account objects
+    public static ArrayList<Customer> customerList = new ArrayList<Customer>();
+    public static ArrayList<Account> accountList = new ArrayList<Account>();
+        
+    public static Scanner kbReader = new Scanner(System.in);
+    /**
+     * Method to check the length of the username which must be between 6 and 18 characters
+     * @return true if the username meets requirements, false if otherwise
+     */
+    public static boolean usernameLength(String text){
+        if(text.length() >= 6 && text.length() <= 18){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    /**
+     * Method to check the length of the password which must be between 8 and 12 characters
+     * @return true if the password meets requirements, false if otherwise
+     */
+    public static boolean passwordLength(String text){
+        if(text.length() >= 8 && text.length() <= 12){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    /**
+     * Method to check if text contains whitespace or not
+     * @param text, can be either the username or password
+     * @return true if there is whitespace, false if otherwise
+     */
+    public static boolean charCheck(String text){
+        boolean space = false;
+        for(int i = 0; i < text.length(); i++){
+            if(Character.isWhitespace(text.charAt(i))){
+                space = true;
+            }
+        }
+        return space;
+    }
+
+    //Changes made: Made the return type String instead of void 
+    /**
+     * Method to create user 
+     * @return first and last name of the account created
+     */
+    public static String newUser(){
+        Scanner kbReader = new Scanner(System.in);
+        System.out.print("\nEnter first name: ");
+        String firstname = kbReader.nextLine();
+
+        System.out.print("Enter last name: ");
+        String lastname = kbReader.nextLine();
+        //Changes made: created the account name here so that if a new user is created the account name is stored for future reference
+        String accName = firstname + " " + lastname;
+        String username;
+        while(true){
+            System.out.print("\nUsernames cannot contain spaces and must be between 6 and 18 characters. \nEnter a username: ");
+            username = kbReader.nextLine();
+            if((usernameLength(username) == true) && (charCheck(username) == false)){
+                break;
+            }
+            else{
+                System.out.println("Please select another username.\n");
+            }
+        }
+
+        String password;
+        while(true){
+            System.out.print("\nPasswords cannot contain spaces and must be between 8 and 12 characters.\nEnter a password: ");
+            password = kbReader.nextLine();
+            if(passwordLength(password) == true && charCheck(password) == false){
+                break;
+            }
+            else{
+                System.out.println("Please select another password.\n");
+            }
+        }
+        customerList.add(new Customer(firstname, lastname, username, password));
+
+        int accountType;
+        while(true){
+            System.out.println("\nAccount type needed: \n1. Checking \n2. Savings \n3. Both");
+            accountType = Integer.parseInt(kbReader.nextLine());
+            if ((accountType == 1) || (accountType == 2) || (accountType == 3)){
+                break;
+            }
+            else{
+                System.out.println("Only enter 1, 2 or 3.");
+            }
+        }
+
+        switch (accountType){
+            case 1: 
+            accountList.add(new Account(firstname, lastname, "checking"));
+            break;
+            case 2:
+            accountList.add(new Account(firstname, lastname, "savings"));
+            break;
+            case 3: 
+            accountList.add(new Account(firstname, lastname, "checking"));
+            accountList.add(new Account(firstname, lastname, "savings"));
+            break;
+            default:
+            break;
+        }
+
+        //display account info to user
+        for (int i = 0; i < accountList.size(); i++){
+           System.out.println(accountList.get(i).toString());
+        }
+        //Changes made: Prints a new line after the account information is displayed to the user; returns the user's account name
+        //              for future reference
+        System.out.println("\n");
+        return accName;
+    }
+
+    /**
+     * Main method that allows log ins and transactions to be made
+     */
+    public static void main (String args[]){
+        System.out.println("Welcome to Alpha Online Banking");
+        
+        //Changes made: Encorporated the Menu into a variable for future print purposes; declared the accName variable null; 
+        //              created an accountCounter variable outside of the loop for global reference
+        String mainMenu = "Menu: \n1. Login to an existing account \n2. Create new account \n3. Quit";
+        String accName = null;
+        int accountCounter = 0;
+        
+        //Changes made: changed "while(true){" to make the while loop depend on the accountCounter variable 
+        while(accountCounter == 0){
+            try{
+                //Changes made: used the mainMenu variable that I created instead of typing the menu again 
+                System.out.println(mainMenu);
+                
+                int loginChoice = Integer.parseInt(kbReader.nextLine());
+                
+                if (loginChoice != 3){
+                    //Changes made: created an executed variable to indicate which login option was executed
+                    int executed = 0;
+                    if (loginChoice == 1){
+                        //Changes made: Placed this inside of the 1st login option to prevent redundancy
+                        System.out.print("\nEnter first name: ");
+                        String accFirst = kbReader.nextLine();
+                
+                        System.out.print("Enter last name: ");
+                        String accLast = kbReader.nextLine();
+                
+                        accName = accFirst + " " + accLast;
+                        executed = 1;
+                    }
+                    
+                    if (loginChoice == 2){
+                        //Changes made: saved the account name that was returned from the newUser function to prevent redundancy 
+                        accName = newUser();
+                        executed = 2;
+                    }
+                    else if(executed == 1 || executed == 2){
+                        //Changes made: counts the number of accounts the user has to ensure that they do have at least 1 account 
+                        for (int i = 0; i < accountList.size(); i++){
+                            if(accountList.get(i).getAccountOwner().equals(accName)){
+                                System.out.print("\nAccount " + (i+1) + "\n*******************" + accountList.get(i).toString() + "\n");
+                                accountCounter++;
+                            }
+                        }
+                        //Changes made: If there is at least 1 account, displays the Online Banking options. If not, displays error
+                        //              message
+                        if (accountCounter > 0){
+                            break; 
+                        }
+                        else{
+                            System.out.println("There were no accounts found with the name entered above. Please try again.\n");
+                        }
+                    }
+                    
+                    else{
+                        System.out.println("Please only enter 1, 2 or 3.");
+                    }
+                    
+                }
+                else{
+                    System.exit(0);
+                }
+            }
+
+            catch(Exception e){
+                System.out.println("Error in input entry. Please try again");
+            }
+        }
+        
+        while(true){
+            try{
+                Transactions newTrans = new Transactions();
+                String transactionInfo;
+                System.out.println("\nOnline Banking Options: \n1. Deposit \n2. Withdraw \n3. Transfer  \n4. Balance Query " 
+                + "\n5. Print last 3 transactions \n6. Quit");
+                int bankOption = Integer.parseInt(kbReader.nextLine());
+                if(bankOption == 1){
+                    //Changes made: Removed the no account found error message to prevent redundancy
+                    System.out.println("\nSelect the account for deposit: ");
+                    int depositChoice = Integer.parseInt(kbReader.nextLine());
+
+                    System.out.print("Enter amount to deposit: ");
+                    double depositAmount = Double.parseDouble(kbReader.nextLine());
+
+                    boolean depositSuccess = (newTrans.deposit(accountList.get(depositChoice - 1), depositAmount));
+                    if(depositSuccess == true){
+                        accountList.get(depositChoice - 1).transactionsList.add(newTrans);
+                    }
+                }
+                else if(bankOption == 2){
+                    //Changes made: Removed the no account found error message to prevent redundancy
+                    System.out.println("\nSelect the account for withdrawal: ");
+                    int withdrawChoice = Integer.parseInt(kbReader.nextLine());
+
+                    System.out.print("Enter amount to withdraw: ");
+                    double withdrawAmount = Double.parseDouble(kbReader.nextLine());
+                    
+                    boolean withdrawSuccess = (newTrans.withdraw(accountList.get(withdrawChoice - 1), withdrawAmount));
+                    if(withdrawSuccess == true){
+                        accountList.get(withdrawChoice - 1).transactionsList.add(newTrans);
+                    }
+                }
+                else if(bankOption == 3){
+                    //Changes made: Removed the accountCounter to prevent redundancy
+                    if(accountCounter < 2 ){
+                        System.out.println("You do not have enough accounts to make a transfer.");
+                        break;
+                    }
+                    else{
+                        //Changes made: Removed the account listing to prevent redundancy
+                        while(true){
+                            //Changes made: Removed the no account found error message to prevent redundancy
+                            System.out.println("\nSelect the FROM transfer account: ");
+                            int fromChoice = Integer.parseInt(kbReader.nextLine());
+
+                            System.out.print("Select the TO transfer account: ");
+                            int toChoice = Integer.parseInt(kbReader.nextLine());
+
+                            if(fromChoice == toChoice){
+                                System.out.println("You cannot make a transfer TO and FROM the same account");
+                            }
+                            else{
+                                System.out.print("Enter amount to transfer: ");
+                                double transferAmount = Double.parseDouble(kbReader.nextLine());
+
+                                boolean transferSuccess = (newTrans.transfer(accountList.get(fromChoice - 1), accountList.get(toChoice - 1), transferAmount));
+                                if(transferSuccess == true){
+                                    accountList.get(toChoice - 1).transactionsList.add(newTrans);
+                                    //accountList.get(fromChoice - 1).transactionsList.add(newTrans);
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+                else if(bankOption == 4){
+                    System.out.println("\nSelect the account for balance query: ");
+                    int balanceChoice = Integer.parseInt(kbReader.nextLine());
+                    
+                    System.out.println("Account " + accountList.get(balanceChoice - 1).accountNo + " Balance: $" + 
+                    accountList.get(balanceChoice - 1).accountBal);
+                }
+                
+                else if (bankOption == 5){
+                    int printCounter = 0;
+                    System.out.println("\nSelect the account for transactions listing: ");
+                    int transactionsListChoice = Integer.parseInt(kbReader.nextLine());
+                    int transactionsListSize = accountList.get(transactionsListChoice - 1).transactionsList.size();
+                    if ( transactionsListSize != 0){
+                        System.out.println("Here are the last 3 transaction on Account: " + accountList.get(transactionsListChoice - 1).accountNo);
+                        int conditionNumber = 0;
+                        if (transactionsListSize == 1){
+                            conditionNumber = 1;
+                        }
+                        else if (transactionsListSize == 2){
+                            conditionNumber = 2;
+                        }
+                        else{
+                            conditionNumber = 3;
+                        }
+                        for (int i = transactionsListSize - 1; printCounter < conditionNumber; i--){
+                            System.out.println(accountList.get(transactionsListChoice - 1).transactionsList.get(i).transactionInfo);
+                            System.out.println("\n");
+                            printCounter++;
+                        }
+                    }
+                    else{
+                        System.out.println("There are no transactions to print.");
+
+                    }
+                }
+                else if(bankOption == 6){
+                    System.exit(0);
+                }
+                //Changes made: Lists the account info after each transaction
+                for (int i = 0; i < accountList.size(); i++){
+                        System.out.println("\n" + accountList.get(i).toString());
+                }
+            }
+            catch(Exception e){
+                System.out.println("Error in input entry. Please try again");
+            }
+        }
+    }
+}
+```
