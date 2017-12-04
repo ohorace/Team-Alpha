@@ -1,0 +1,82 @@
+```java
+/**
+ * Testing Class
+ * Creates 5 Account objects
+ * 
+ * 
+ * @Horace and Smith 
+ * @December 3, 2017 - Iteration 4
+ */
+import java.io.*;
+import java.util.*;
+public class TestingI4
+{
+    public static void main (String args[]){
+        ArrayList<Account> accountList = new ArrayList<Account>();
+
+        accountList.add(new Account("Olivia", "Horace", "Checking"));
+        accountList.add(new Account("Tyerra", "Smith", "Saving"));
+        accountList.add(new Account("Mike", "Pickard", "Checking"));
+        accountList.add(new Account("Darian", "Thomas", "Saving"));
+        accountList.add(new Account("Cam", "Baker", "Checking"));
+
+        Transactions newTran = new Transactions();
+        while(true){
+            try{
+				/////////////////////////////////////////////////////////////////
+				/////////////////////Positive Testing////////////////////////////
+				////////////////////////////////////////////////////////////////
+				System.out.println("***Positive Testing***");
+                //deposits
+                for(int j = 0; j < accountList.size(); j++){
+                    System.out.println(newTran.deposit(accountList.get(j), 12.45));
+                }
+
+                //withdrawals
+                for(int j = 0; j < accountList.size(); j++){
+                    System.out.println(newTran.withdraw(accountList.get(j), 592));
+                }
+
+                //transfer
+                for(int j = 0; j < accountList.size(); j++){
+                    if (j == accountList.size() - 1){
+                        System.out.println(newTran.transfer(accountList.get(j), accountList.get(0), 20.34));
+                    }
+                    else{
+                        System.out.println(newTran.transfer(accountList.get(j), accountList.get(j+1), 90.01));
+                    }
+                }
+
+				/////////////////////////////////////////////////////////////////
+				/////////////////////Negative Testing////////////////////////////
+				////////////////////////////////////////////////////////////////
+				System.out.println("***Negative Testing***");
+                //deposits
+                for(int j = 0; j < accountList.size(); j++){
+                    System.out.println(newTran.deposit(accountList.get(j), -20.5));
+                }
+
+                //withdrawals
+                for(int j = 0; j < accountList.size(); j++){
+                    System.out.println(newTran.withdraw(accountList.get(j), 7060));
+                }
+
+                //transfer
+                for(int j = 0; j < accountList.size(); j++){
+                    if (j == accountList.size() - 1){
+                        System.out.println(newTran.transfer(accountList.get(j), accountList.get(0), 200.89));
+                    }
+                    else{
+                        System.out.println(newTran.transfer(accountList.get(j), accountList.get(j+1), 600));
+                    }
+                }
+                break;
+            }
+            catch(Exception e)
+            {
+                System.out.println("Error: Please only enter non-negative dollar amount!");
+            }
+        }
+    }
+}
+```
